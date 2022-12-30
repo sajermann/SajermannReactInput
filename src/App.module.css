@@ -1,0 +1,15 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+
+	gap: 4px;
+}
+
+.subContainer {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+
+	gap: 4px;
+}

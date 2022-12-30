@@ -3,8 +3,6 @@ import { useMemo } from 'react';
 import styles from './styles.module.css';
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
-	startAttach?: React.ReactNode;
-	endAttach?: React.ReactNode;
 	startContent?: JSX.Element;
 	endContent?: JSX.Element;
 	customlabel?: {
@@ -22,8 +20,6 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
 }
 
 function Input({
-	startAttach,
-	endAttach,
 	startContent,
 	endContent,
 	customlabel,
@@ -74,14 +70,6 @@ function Input({
 	function verifyClassesInput() {
 		const classesToReturn = [styles.input];
 
-		if (startAttach) {
-			classesToReturn.push(styles.hasStartAtt);
-		}
-
-		if (endAttach) {
-			classesToReturn.push(styles.hasEndAtt);
-		}
-
 		if (startContent) {
 			classesToReturn.push(styles.hasStartContent);
 		}
@@ -108,17 +96,6 @@ function Input({
 		return null;
 	}, [customlabel]);
 
-	const buildStartAttach = useMemo(() => {
-		const classes = [styles.startAttch];
-		if (typeof startAttach !== 'string') {
-			classes.push(styles.zeroPadding);
-		}
-		if (startAttach) {
-			return <div className={classes.join(' ')}>{startAttach}</div>;
-		}
-		return null;
-	}, [startAttach]);
-
 	const buildStartContent = useMemo(() => {
 		if (startContent) {
 			return <div className={styles.startContent}>{startContent}</div>;
@@ -133,23 +110,11 @@ function Input({
 		return null;
 	}, [endContent]);
 
-	const buildEndAttach = useMemo(() => {
-		const classes = [styles.endAttch];
-		if (typeof endAttach !== 'string') {
-			classes.push(styles.zeroPadding);
-		}
-		if (endAttach) {
-			return <div className={classes.join(' ')}>{endAttach}</div>;
-		}
-		return null;
-	}, [endAttach]);
-
 	return (
 		<div className={verifyClassesContainer()}>
 			{buildLabel}
 			<div className={styles.subContainer}>
 				<div className={`${styles.containerInput}`}>
-					{buildStartAttach}
 					{buildStartContent}
 					<input
 						{...props}
@@ -157,7 +122,6 @@ function Input({
 						className={verifyClassesInput()}
 					/>
 					{buildEndContent}
-					{buildEndAttach}
 				</div>
 			</div>
 		</div>

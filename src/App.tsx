@@ -1,27 +1,34 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Scales, WhatsappLogo, YoutubeLogo } from 'phosphor-react';
-import { Input } from '../components/Input';
+import React from 'react';
+import { Input } from './Components/Input';
+
+import styles from './App.module.css';
+
+function SubContainer({ children }: { children: React.ReactNode }) {
+	return <div className={styles.subContainer}>{children}</div>;
+}
 
 function App() {
 	return (
-		<main>
+		<main className={styles.main}>
 			<div>
 				<div>{`import { Input } from '@sajermann/ui-react';`}</div>
 			</div>
 
-			<div>
+			<SubContainer>
 				Input mais próximo possível do vanilla:
-				<div>
-					<Input placeholder="Sem Label" />
-					<Input placeholder="Com onChange" onChange={e => console.log(e)} />
-					<Input placeholder="Com Class" className="MyClass" />
-				</div>
-			</div>
+				<Input placeholder="Sem Label" />
+				<Input placeholder="Com onChange" onChange={e => console.log(e)} />
+				<Input placeholder="Com Class" className="MyClass" />
+			</SubContainer>
 
-			<div>
-				É possível adicionar label no input através da propriedade{' '}
-				<span className="highlight">customlabel</span> ou colocando a label por
-				fora caso queira uma personalização mais livre:
+			<SubContainer>
+				<div>
+					É possível adicionar label no input através da propriedade
+					<span className="highlight"> customlabel</span> ou colocando a label
+					por fora caso queira uma personalização mais livre:
+				</div>
 				<div>
 					<Input
 						customlabel={{ text: 'Com Label no Top' }}
@@ -43,7 +50,7 @@ function App() {
 						<Input />
 					</label>
 				</div>
-			</div>
+			</SubContainer>
 
 			<div>
 				Você pode anexar informações ao seu input através das propriedades{' '}
@@ -53,59 +60,27 @@ function App() {
 				<div>
 					<Input
 						customlabel={{ text: 'Com anexo de texto no início' }}
-						startAttach="http://"
 						id="withAttchText"
 					/>
 
 					<Input
 						customlabel={{ text: 'Com anexo personalizado no início' }}
-						startAttach={
-							<div
-								style={{
-									backgroundColor: 'blue',
-									height: '100%',
-									alignItems: 'center',
-									justifyContent: 'center',
-									display: 'flex',
-									width: '115px',
-								}}
-							>
-								http://
-							</div>
-						}
 						id="withAttchTextCustom"
 					/>
 
 					<Input
 						customlabel={{ text: 'Com anexo de texto no fim' }}
-						endAttach=".com"
 						id="withAttchTextEnd"
 					/>
 
 					<Input
 						customlabel={{ text: 'Com anexo personalizado no fim' }}
-						endAttach={
-							<div
-								style={{
-									backgroundColor: 'blue',
-									height: '100%',
-									alignItems: 'center',
-									justifyContent: 'center',
-									display: 'flex',
-									width: '115px',
-								}}
-							>
-								.com
-							</div>
-						}
 						id="withAttchTextCustomEnd"
 					/>
 
 					<Input
 						customlabel={{ text: 'Com anexo de texto no início e no fim' }}
 						id="attchStartAndEnd"
-						startAttach="http://"
-						endAttach=".com"
 					/>
 
 					<Input
@@ -113,34 +88,6 @@ function App() {
 							text: 'Com anexo de personalizado no início e no fim',
 						}}
 						id="attchStartAndEndCustom"
-						startAttach={
-							<div
-								style={{
-									backgroundColor: 'blue',
-									height: '100%',
-									alignItems: 'center',
-									justifyContent: 'center',
-									display: 'flex',
-									width: '115px',
-								}}
-							>
-								http://
-							</div>
-						}
-						endAttach={
-							<div
-								style={{
-									backgroundColor: 'blue',
-									height: '100%',
-									alignItems: 'center',
-									justifyContent: 'center',
-									display: 'flex',
-									width: '115px',
-								}}
-							>
-								.com
-							</div>
-						}
 					/>
 				</div>
 			</div>

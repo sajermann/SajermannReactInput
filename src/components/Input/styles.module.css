@@ -30,36 +30,6 @@
 	position: relative;
 }
 
-.input:disabled {
-	cursor: not-allowed;
-}
-
-.input:focus {
-	outline: 0.25rem;
-	border: 2px solid;
-}
-
-.input:invalid {
-	border: 2px solid red;
-}
-
-.startAttch {
-	background-color: gray;
-	padding: 0 10px;
-	border: 1px solid black;
-	border-radius: 5px 0px 0px 5px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	overflow: hidden;
-}
-
-.hasStartAtt {
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-	border-left: 0;
-}
-
 .endAttch {
 	background-color: gray;
 	padding: 0 10px;
@@ -69,12 +39,6 @@
 	align-items: center;
 	justify-content: center;
 	overflow: hidden;
-}
-
-.hasEndAtt {
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-	border-right: 0;
 }
 
 .hasStartContent {

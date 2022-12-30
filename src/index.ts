@@ -1,3 +1,3 @@
-import { Input } from './components/Input';
+import { Input } from './Components/Input';
 
 export { Input };

@@ -4,73 +4,11 @@
 	padding: 0;
 }
 
-a {
-	color: black;
-}
-
 body {
 	height: 100%;
 	width: 100%;
 	font-family: 'Roboto', sans-serif;
 	line-height: 1.9rem;
-}
-
-.darkMode,
-.darkMode a {
 	color: #fff;
 	background-color: rgb(31 41 55 / 1);
 }
-
-pre {
-	color: #fff;
-	display: block;
-	padding: 30px;
-	border: 1px solid;
-	border-radius: 10px;
-	background-color: rgb(15 25 38);
-	margin: 10px 0;
-}
-
-.componentBlock {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	padding: 30px;
-	border: 1px solid;
-	border-radius: 0.3rem;
-	margin: 10px 0;
-	gap: 10px;
-}
-
-.children {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: row;
-	width: 100%;
-	gap: 10px;
-	flex-wrap: wrap;
-}
-
-.toggleCode {
-	width: 100%;
-}
-
-.darkMode > .componentBlock {
-	border: 1px solid rgb(15 25 38);
-}
-
-.highlight {
-	color: #fff;
-	background-color: rgb(15 25 38);
-	padding: 2px;
-	border-radius: 5px;
-}
-
-/* @media (max-width: 360px) {
-	.componentBlock{
-		width: 70%
-	}
-
-} */
