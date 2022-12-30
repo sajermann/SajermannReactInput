@@ -1,0 +1,83 @@
+{
+	"env": {
+			"browser": true,
+			"es2021": true,
+			"jest": true
+	},
+	"extends": [
+			"plugin:react/recommended",
+			"airbnb",
+			"prettier",
+			"plugin:@typescript-eslint/eslint-recommended",
+			"plugin:@typescript-eslint/recommended"
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+			"ecmaFeatures": {
+					"jsx": true
+			},
+			"ecmaVersion": 12,
+			"sourceType": "module"
+	},
+	"plugins": [
+			"react",
+			"@typescript-eslint",
+			"prettier"
+	],
+	"rules": {
+		"no-alert": "off",
+		"import/prefer-default-export": "off",
+		"no-restricted-syntax": [
+			"error",
+			{
+					"selector": "FunctionExpression",
+					"message": "Function expressions are not allowed."
+			},
+			{
+					"selector": "CallExpression[callee.name='setTimeout'][arguments.length!=2]",
+					"message": "setTimeout must always be invoked with two arguments."
+			}
+	],
+		"react/require-default-props": "off",
+		"prettier/prettier": "error",
+		"space-before-function-paren": "off",
+		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", "ts", "tsx"] }],
+		"no-console": "off",
+		"no-use-before-define": "off",
+		"@typescript-eslint/no-use-before-define": ["error"],
+		"react/react-in-jsx-scope": "off",
+		"react/jsx-props-no-spreading": "off",
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				"js": "never",
+				"jsx": "never",
+				"ts": "never",
+				"tsx": "never"
+			}
+	],
+	"react/jsx-no-bind": [1, {
+		"ignoreDOMComponents": false,
+		"ignoreRefs": false,
+		"allowArrowFunctions": true,
+		"allowFunctions": true,
+		"allowBind": false
+	}]
+	},
+	"overrides": [
+		{
+			"files": ["*.tsx"],
+			"rules": {
+					"no-undef": "off"
+			}
+		}
+	],
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [".js", ".jsx", ".ts", ".tsx"]
+			}
+		}
+	}
+}
