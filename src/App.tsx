@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Scales, WhatsappLogo, YoutubeLogo } from 'phosphor-react';
 import React from 'react';
-import { Input } from './Components/Input';
+import { Input } from './ComponentsNew/Input';
 
 import styles from './App.module.css';
 
