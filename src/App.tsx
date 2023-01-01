@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import { Scales, WhatsappLogo, YoutubeLogo } from 'phosphor-react';
 import React from 'react';
 import { Input } from './Components/Input';
 
@@ -7,6 +5,36 @@ import styles from './App.module.css';
 
 function SubContainer({ children }: { children: React.ReactNode }) {
 	return <div className={styles.subContainer}>{children}</div>;
+}
+
+function formatarStringForReal(valor: string) {
+	try {
+		const newValue = valor.replace(/\D/g, '');
+		const arrayValues = `${(Number(newValue) / 100).toFixed(2)}`.split('.');
+		const arrayValuesMain = arrayValues[0]
+			.split('')
+			.reverse()
+			.join('')
+			.match(/.{1,3}/g);
+
+		if (!arrayValuesMain) {
+			return 'R$ 0,00';
+		}
+
+		for (let i = 0; i < arrayValuesMain.length; i += 1)
+			arrayValuesMain[i] = `${arrayValuesMain[i]
+				.split('')
+				.reverse()
+				.join('')}.`;
+
+		const valueMain = arrayValuesMain.reverse().join('');
+
+		return `R$ ${valueMain.substring(0, valueMain.lastIndexOf('.'))},${
+			arrayValues[1]
+		}`;
+	} catch {
+		return 'R$ 0,00';
+	}
 }
 
 function App() {
@@ -19,7 +47,23 @@ function App() {
 			<SubContainer>
 				Input mais próximo possível do vanilla:
 				<Input placeholder="Sem Label" />
-				<Input placeholder="Com onChange" onChange={e => console.log(e)} />
+				<Input
+					placeholder="Com debounce"
+					onChange={e => console.log(e.target.value)}
+					debounce={2000}
+				/>
+				<Input
+					placeholder="Sem debounce"
+					onChange={e => console.log(e.target.value)}
+					removeBeforeChange={{
+						fn: e => {
+							const temp = { ...e };
+							temp.target.value = formatarStringForReal(temp.target.value);
+
+							return temp;
+						},
+					}}
+				/>
 				<Input placeholder="Com Class" className="MyClass" />
 			</SubContainer>
 
@@ -31,134 +75,26 @@ function App() {
 				</div>
 				<div>
 					<Input
-						customlabel={{ text: 'Com Label no Top' }}
+						labelProps={{ children: <span>Com Label no Top</span> }}
 						id="withLabelInTop"
 					/>
 
 					<Input
-						customlabel={{ text: 'Com Label na esquerda', position: 'Left' }}
-						id="withLabelinLeft"
-					/>
-					<label
-						style={{
-							width: '100%',
-							background: 'green',
-							color: 'white',
+						containerProps={{
+							style: {
+								display: 'flex',
+								flexDirection: 'column',
+							},
 						}}
-					>
-						Label personalizada
-						<Input />
-					</label>
+						labelProps={{
+							children: 'Com Label na esquerda',
+							className: 'Batata',
+						}}
+						id="withLabelinLeft"
+						label="BaTATA"
+					/>
 				</div>
 			</SubContainer>
-
-			<div>
-				Você pode anexar informações ao seu input através das propriedades{' '}
-				<span className="highlight">startAttach</span> e{' '}
-				<span className="highlight">endAttach</span>, essas informações podem
-				ser de texto ou conteúdo:
-				<div>
-					<Input
-						customlabel={{ text: 'Com anexo de texto no início' }}
-						id="withAttchText"
-					/>
-
-					<Input
-						customlabel={{ text: 'Com anexo personalizado no início' }}
-						id="withAttchTextCustom"
-					/>
-
-					<Input
-						customlabel={{ text: 'Com anexo de texto no fim' }}
-						id="withAttchTextEnd"
-					/>
-
-					<Input
-						customlabel={{ text: 'Com anexo personalizado no fim' }}
-						id="withAttchTextCustomEnd"
-					/>
-
-					<Input
-						customlabel={{ text: 'Com anexo de texto no início e no fim' }}
-						id="attchStartAndEnd"
-					/>
-
-					<Input
-						customlabel={{
-							text: 'Com anexo de personalizado no início e no fim',
-						}}
-						id="attchStartAndEndCustom"
-					/>
-				</div>
-			</div>
-
-			<div>
-				Através da propriedade <span className="highlight">startContent</span> e{' '}
-				<span className="highlight">endContent</span> é possível inserir
-				conteúdo dentro do input:
-				<div>
-					<Input
-						placeholder="Conteúdo dentro no início"
-						startContent={
-							<button
-								style={{ minWidth: '10px', height: '31px' }}
-								type="button"
-								onClick={() => alert('Clicou')}
-							>
-								<WhatsappLogo size={30} />
-							</button>
-						}
-					/>
-					<Input
-						placeholder="Conteúdo dentro no fim"
-						endContent={
-							<button
-								style={{ minWidth: '10px', height: '31px' }}
-								type="button"
-								onClick={() => alert('Clicou')}
-							>
-								<YoutubeLogo size={30} />
-							</button>
-						}
-					/>
-					<Input
-						type="number"
-						step="any"
-						placeholder="Conteúdo dentro no início e no fim"
-						onChange={e => console.log({ e })}
-						startContent={
-							<div
-								style={{
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'center',
-									width: '40px',
-									height: '30px',
-									color: 'black',
-								}}
-							>
-								<Scales size={30} />
-							</div>
-						}
-						endContent={
-							<div
-								style={{
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'center',
-									width: '40px',
-									height: '32px',
-									fontSize: '20px',
-									fontWeight: 'bold',
-									color: 'black',
-								}}
-							>
-								KG
-							</div>
-						}
-					/>
-				</div>
-			</div>
 
 			<div>
 				Através da propriedade{' '}

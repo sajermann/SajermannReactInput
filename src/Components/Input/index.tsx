@@ -1,35 +1,46 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import { useMemo } from 'react';
-import styles from './styles.module.css';
+import { useEffect, useState } from 'react';
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
-	startContent?: JSX.Element;
-	endContent?: JSX.Element;
-	customlabel?: {
-		text: string;
-		position?: 'Top' | 'Left';
-	};
+	labelProps?: React.DetailedHTMLProps<
+		React.LabelHTMLAttributes<HTMLLabelElement>,
+		HTMLLabelElement
+	>;
+
+	containerProps?: React.DetailedHTMLProps<
+		React.HTMLAttributes<HTMLDivElement>,
+		HTMLDivElement
+	>;
+
+	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+
 	removeBeforeChange?: {
 		number?: boolean;
 		letterUpper?: boolean;
 		letterLow?: boolean;
 		specialCharacter?: boolean;
 		regexForReplace?: RegExp;
+		fn?: (
+			e: React.ChangeEvent<HTMLInputElement>
+		) => React.ChangeEvent<HTMLInputElement>;
 	};
-	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+
+	debounce?: number;
 }
 
 function Input({
-	startContent,
-	endContent,
-	customlabel,
+	labelProps,
 	removeBeforeChange,
+	containerProps,
 	onChange,
+	debounce,
 	...props
 }: Props) {
+	const [event, setEvent] = useState<React.ChangeEvent<HTMLInputElement>>();
+
 	function onChangeCustom(e: React.ChangeEvent<HTMLInputElement>) {
 		if (!removeBeforeChange && onChange) {
 			onChange(e);
+			return;
 		}
 
 		const temp = { ...e };
@@ -52,78 +63,47 @@ function Input({
 		if (removeBeforeChange?.regexForReplace) {
 			valueTemp = valueTemp.replace(removeBeforeChange?.regexForReplace, '');
 		}
+
 		temp.target.value = valueTemp;
+
+		if (removeBeforeChange?.fn && onChange) {
+			const newEvent = removeBeforeChange?.fn(temp);
+			onChange(newEvent);
+			return;
+		}
+
 		if (onChange) {
 			onChange(temp);
 		}
 	}
 
-	function verifyClassesContainer() {
-		const classesToReturn = [styles.container];
-
-		if (customlabel?.position === 'Left') {
-			classesToReturn.push(styles.containerRow);
+	async function preOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+		if (!debounce) {
+			onChangeCustom(e);
+			return;
 		}
-		return classesToReturn.join(' ');
+		setEvent(e);
 	}
 
-	function verifyClassesInput() {
-		const classesToReturn = [styles.input];
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			if (debounce && event) {
+				onChangeCustom(event);
+			}
+		}, debounce);
 
-		if (startContent) {
-			classesToReturn.push(styles.hasStartContent);
-		}
-
-		if (endContent) {
-			classesToReturn.push(styles.hasEndContent);
-		}
-
-		if (props.className) {
-			classesToReturn.push(props.className);
-		}
-
-		return classesToReturn.join(' ');
-	}
-
-	const buildLabel = useMemo(() => {
-		if (customlabel) {
-			return (
-				<div>
-					<label htmlFor={props.id}>{customlabel.text}</label>
-				</div>
-			);
-		}
-		return null;
-	}, [customlabel]);
-
-	const buildStartContent = useMemo(() => {
-		if (startContent) {
-			return <div className={styles.startContent}>{startContent}</div>;
-		}
-		return null;
-	}, [startContent]);
-
-	const buildEndContent = useMemo(() => {
-		if (endContent) {
-			return <div className={styles.endContent}>{endContent}</div>;
-		}
-		return null;
-	}, [endContent]);
+		return () => clearTimeout(timer);
+	}, [event]);
 
 	return (
-		<div className={verifyClassesContainer()}>
-			{buildLabel}
-			<div className={styles.subContainer}>
-				<div className={`${styles.containerInput}`}>
-					{buildStartContent}
-					<input
-						{...props}
-						onChange={onChangeCustom}
-						className={verifyClassesInput()}
-					/>
-					{buildEndContent}
-				</div>
-			</div>
+		<div {...containerProps}>
+			{labelProps && (
+				<label htmlFor={props.id} {...labelProps}>
+					{labelProps.children}
+				</label>
+			)}
+
+			<input {...props} onChange={preOnChange} />
 		</div>
 	);
 }
