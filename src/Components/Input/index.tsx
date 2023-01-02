@@ -13,11 +13,11 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
 
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 
-	removeBeforeChange?: {
-		number?: boolean;
-		letterUpper?: boolean;
-		letterLow?: boolean;
-		specialCharacter?: boolean;
+	onBeforeChange?: {
+		removeNumber?: boolean;
+		removeLetterUpper?: boolean;
+		removeLetterLow?: boolean;
+		removeSpecialCharacter?: boolean;
 		regexForReplace?: RegExp;
 		fn?: (
 			e: React.ChangeEvent<HTMLInputElement>
@@ -29,7 +29,7 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
 
 function Input({
 	labelProps,
-	removeBeforeChange,
+	onBeforeChange,
 	containerProps,
 	onChange,
 	debounce,
@@ -38,36 +38,36 @@ function Input({
 	const [event, setEvent] = useState<React.ChangeEvent<HTMLInputElement>>();
 
 	function onChangeCustom(e: React.ChangeEvent<HTMLInputElement>) {
-		if (!removeBeforeChange && onChange) {
+		if (!onBeforeChange && onChange) {
 			onChange(e);
 			return;
 		}
 
 		const temp = { ...e };
 		let valueTemp = temp.target.value;
-		if (removeBeforeChange?.letterLow) {
+		if (onBeforeChange?.removeLetterLow) {
 			valueTemp = valueTemp.replace(/[a-z]/g, '');
 		}
-		if (removeBeforeChange?.letterUpper) {
+		if (onBeforeChange?.removeLetterUpper) {
 			valueTemp = valueTemp.replace(/[A-Z]/g, '');
 		}
-		if (removeBeforeChange?.number) {
+		if (onBeforeChange?.removeNumber) {
 			valueTemp = valueTemp.replace(/[0-9]/g, '');
 		}
-		if (removeBeforeChange?.specialCharacter) {
+		if (onBeforeChange?.removeSpecialCharacter) {
 			valueTemp = valueTemp.replace(
 				/[!@#$%^&*(),.?":{ }|<>'¨_=+[;^~´`°\]\\\-/]/g,
 				''
 			);
 		}
-		if (removeBeforeChange?.regexForReplace) {
-			valueTemp = valueTemp.replace(removeBeforeChange?.regexForReplace, '');
+		if (onBeforeChange?.regexForReplace) {
+			valueTemp = valueTemp.replace(onBeforeChange?.regexForReplace, '');
 		}
 
 		temp.target.value = valueTemp;
 
-		if (removeBeforeChange?.fn && onChange) {
-			const newEvent = removeBeforeChange?.fn(temp);
+		if (onBeforeChange?.fn && onChange) {
+			const newEvent = onBeforeChange?.fn(temp);
 			onChange(newEvent);
 			return;
 		}
