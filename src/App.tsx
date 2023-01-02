@@ -96,15 +96,70 @@ function App() {
 			</div>
 
 			<SubContainer>
-				Input mais próximo possível do vanilla:
-				<Input placeholder="Sem Label" />
 				<Input
-					placeholder="Com debounce"
-					onChange={e => console.log(e.target.value)}
-					debounce={2000}
+					placeholder="Label Simples"
+					id="Label Simples"
+					label="Label Simples"
 				/>
 				<Input
-					placeholder="Antigo"
+					placeholder="Label Props"
+					labelProps={{
+						children: 'Test',
+						style: { color: 'red' },
+					}}
+					id="Label Props"
+				/>
+				<Input
+					placeholder="Container Props"
+					id="Container Props"
+					label="Container Props"
+					containerProps={{
+						style: {
+							display: 'flex',
+							flexDirection: 'column',
+							border: '1px solid',
+							width: 300,
+						},
+					}}
+				/>
+
+				<Input
+					placeholder="On Change"
+					onChange={e => console.log(e.target.value)}
+				/>
+
+				<Input
+					placeholder="Remove Number"
+					onBeforeChange={{ removeNumber: true }}
+				/>
+
+				<Input
+					placeholder="Remove All Letter"
+					onBeforeChange={{ removeLowerCase: true, removeUpperCase: true }}
+				/>
+
+				<Input
+					placeholder="Remove Upper Case"
+					onBeforeChange={{ removeUpperCase: true }}
+				/>
+
+				<Input
+					placeholder="Remove Lower Case"
+					onBeforeChange={{ removeLowerCase: true }}
+				/>
+
+				<Input
+					placeholder="Remove Special Character"
+					onBeforeChange={{ removeSpecialCharacter: true }}
+				/>
+
+				<Input
+					placeholder="Remove numbers from 1 to 5"
+					onBeforeChange={{ regexForReplace: /[1-5]/g }}
+				/>
+
+				<Input
+					placeholder="Function Before Change"
 					onChange={e => console.log(e.target.value)}
 					onBeforeChange={{
 						fn: e => {
@@ -116,104 +171,13 @@ function App() {
 						},
 					}}
 				/>
+
 				<Input
-					placeholder="Novo"
+					placeholder="Debounce 2 seconds"
 					onChange={e => console.log(e.target.value)}
-					onBeforeChange={{
-						fn: e => {
-							const temp = { ...e };
-
-							temp.target.value = atacado({
-								value: temp.target.value,
-								decimal_place: 4,
-							});
-
-							return temp;
-						},
-					}}
-				/>
-				<Input
-					placeholder="Correto que nao funciona"
-					onChange={e => console.log(e.target.value)}
-					onBeforeChange={{
-						fn: e => {
-							const temp = { ...e };
-							const valueUnformated = unformat(temp.target.value);
-							console.log({ valueUnformated });
-							temp.target.value = formatForReal(valueUnformated);
-
-							return temp;
-						},
-					}}
+					debounce={2000}
 				/>
 			</SubContainer>
-
-			<SubContainer>
-				<div>
-					É possível adicionar label no input através da propriedade
-					<span className="highlight"> customlabel</span> ou colocando a label
-					por fora caso queira uma personalização mais livre:
-				</div>
-				<div>
-					<Input
-						labelProps={{ children: <span>Com Label no Top</span> }}
-						id="withLabelInTop"
-					/>
-
-					<Input
-						containerProps={{
-							style: {
-								display: 'flex',
-								flexDirection: 'column',
-							},
-						}}
-						labelProps={{
-							children: 'Com Label na esquerda',
-							className: 'Batata',
-						}}
-						id="withLabelinLeft"
-						label="BaTATA"
-					/>
-				</div>
-			</SubContainer>
-
-			<div>
-				Através da propriedade <span className="highlight">onBeforeChange</span>{' '}
-				é possível bloquear caracteres indesejados no momento do onChange, os
-				bloqueios pré definidos são <span className="highlight">number</span> |{' '}
-				<span className="highlight">removeLetterUpper</span> |{' '}
-				<span className="highlight">removeLetterLow</span> |{' '}
-				<span className="highlight">removeSpecialCharacter</span> e você também
-				pode informar um regex personalizado através da opção{' '}
-				<span className="highlight">regexForReplace</span>, veja abaixo os
-				exemplos:
-				<div>
-					<Input
-						placeholder="Bloquear números"
-						onBeforeChange={{ removeNumber: true }}
-					/>
-					<Input
-						placeholder="Bloquear letras"
-						onBeforeChange={{ removeLetterLow: true, removeLetterUpper: true }}
-					/>
-					<Input
-						placeholder="Bloquear letras maiúsculas"
-						onBeforeChange={{ removeLetterUpper: true }}
-					/>
-					<Input
-						placeholder="Bloquear letras minúsculas"
-						onBeforeChange={{ removeLetterLow: true }}
-					/>
-					<Input
-						placeholder="Bloquear caracteres especiais"
-						onBeforeChange={{ removeSpecialCharacter: true }}
-					/>
-					<Input
-						placeholder="Bloquear números do 1 ao 5"
-						onBeforeChange={{ regexForReplace: /[1-5]/g }}
-					/>
-				</div>
-			</div>
 		</main>
 	);
 }

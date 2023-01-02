@@ -15,8 +15,8 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
 
 	onBeforeChange?: {
 		removeNumber?: boolean;
-		removeLetterUpper?: boolean;
-		removeLetterLow?: boolean;
+		removeUpperCase?: boolean;
+		removeLowerCase?: boolean;
 		removeSpecialCharacter?: boolean;
 		regexForReplace?: RegExp;
 		fn?: (
@@ -45,10 +45,10 @@ function Input({
 
 		const temp = { ...e };
 		let valueTemp = temp.target.value;
-		if (onBeforeChange?.removeLetterLow) {
+		if (onBeforeChange?.removeLowerCase) {
 			valueTemp = valueTemp.replace(/[a-z]/g, '');
 		}
-		if (onBeforeChange?.removeLetterUpper) {
+		if (onBeforeChange?.removeUpperCase) {
 			valueTemp = valueTemp.replace(/[A-Z]/g, '');
 		}
 		if (onBeforeChange?.removeNumber) {
@@ -85,21 +85,23 @@ function Input({
 		setEvent(e);
 	}
 
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			if (debounce && event) {
-				onChangeCustom(event);
-			}
-		}, debounce);
+	if (debounce) {
+		useEffect(() => {
+			const timer = setTimeout(() => {
+				if (debounce && event) {
+					onChangeCustom(event);
+				}
+			}, debounce);
 
-		return () => clearTimeout(timer);
-	}, [event]);
+			return () => clearTimeout(timer);
+		}, [event]);
+	}
 
 	return (
 		<div {...containerProps}>
-			{labelProps && (
+			{(labelProps || props.label) && (
 				<label htmlFor={props.id} {...labelProps}>
-					{labelProps.children}
+					{labelProps?.children || props.label}
 				</label>
 			)}
 
