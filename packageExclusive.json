@@ -1,5 +1,5 @@
 {
-	"name": "@sajermann/react/input",
+	"name": "@sajermann-react/input",
 	"version": "0.0.1",
 	"description": "Library created for implements super power in input.",
 	"main": "index.js",
