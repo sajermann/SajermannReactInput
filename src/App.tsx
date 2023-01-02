@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import React from 'react';
 
 import { Input } from './Components/Input';
@@ -9,17 +8,6 @@ function SubContainer({ children }: { children: React.ReactNode }) {
 	return <div className={styles.subContainer}>{children}</div>;
 }
 
-function formatForReal(
-	value: number,
-	maximumSignificantDigits?: number
-): string {
-	return new Intl.NumberFormat('pt-BR', {
-		style: 'currency',
-		currency: 'BRL',
-		maximumSignificantDigits,
-	}).format(value);
-}
-
 function unformat(value: string) {
 	return parseFloat(
 		value
@@ -27,35 +15,6 @@ function unformat(value: string) {
 			.replace(/[.]/g, '')
 			.replace(',', '.')
 	);
-}
-
-type Props = {
-	value: string;
-	decimal_place?: number;
-	thousand_separator?: string;
-	decimal_separator?: string;
-};
-
-function atacado({
-	value,
-	decimal_place = 2,
-	thousand_separator = '.',
-	decimal_separator = ',',
-}: Props) {
-	const decimais_ele = 10 ** decimal_place;
-	const thousand_separator_formatted = `$1${thousand_separator}`;
-	let v = value.replace(/\D/g, '');
-	v = `${(+v / decimais_ele).toFixed(decimal_place)}`;
-	const splits = v.split('.');
-	const p_parte = splits[0]
-		.toString()
-		.replace(/(\d)(?=(\d{3})+(?!\d))/g, thousand_separator_formatted);
-	const final =
-		typeof splits[1] === 'undefined'
-			? p_parte
-			: p_parte + decimal_separator + splits[1];
-
-	return `R$ ${final}`;
 }
 
 function formatarStringForReal(valor: string) {
@@ -168,6 +127,35 @@ function App() {
 							temp.target.value = formatarStringForReal(temp.target.value);
 
 							return temp;
+						},
+					}}
+				/>
+
+				<Input
+					placeholder="Apply Mask - Currency"
+					onBeforeChange={{
+						applyMask: {
+							currency: {
+								decimalPlace: 2,
+							},
+						},
+					}}
+				/>
+
+				<Input
+					placeholder="Apply Mask - Cnpj"
+					onBeforeChange={{
+						applyMask: {
+							cnpj: true,
+						},
+					}}
+				/>
+
+				<Input
+					placeholder="Apply Mask - Cpf"
+					onBeforeChange={{
+						applyMask: {
+							cpf: true,
 						},
 					}}
 				/>
