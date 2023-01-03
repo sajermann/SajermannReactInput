@@ -1,14 +1,14 @@
-# @sajermann/react/Input
+# @sajermann/react-input
 
 Library created for implements super power in input.
 
-## Installation
+## Install
 
-```npm i @sajermann/react/input```
+```npm i @sajermann/react-input```
 
 ## Links
 
-[NPM](https://www.npmjs.com/package/@sajermann/ui-react)
+[NPM](https://www.npmjs.com/package/@sajermann/react-input)
 [Github](https://github.com/sajermann/SajermannReactInput)
 
 ## Props
@@ -24,6 +24,7 @@ Library created for implements super power in input.
 &nbsp;&nbsp;&nbsp;&nbsp;regexForReplace?: RegExp;
 &nbsp;&nbsp;&nbsp;&nbsp;fn?: (e: React.ChangeEvent<HTMLInputElement>) => React.ChangeEvent<HTMLInputElement>;
 };
+**applyMask?:** TCurrency | TCnpj | TCpf | TCep;
 **debounce?:** number;
 
 ## Examples
@@ -122,8 +123,58 @@ Library created for implements super power in input.
 	onBeforeChange={{
 		fn: e => {
 			const temp = { ...e };
-			temp.target.value = formatarStringForReal(temp.target.value); // Custom Function
+			temp.target.value = addMessage(temp.target.value); // Any Custom Function
 			return temp;
+		},
+	}}
+/>
+```
+
+### applyMask.currency
+```js
+<Input
+	placeholder="Apply Mask - Currency"
+	onBeforeChange={{
+		applyMask: {
+			currency: {
+				decimalPlace: 2,
+			},
+		},
+	}}
+/>
+```
+
+### applyMask.cnpj
+```js
+<Input
+	placeholder="Apply Mask - Cnpj"
+	onBeforeChange={{
+		applyMask: {
+			cnpj: true,
+		},
+	}}
+/>
+```
+
+### applyMask.cpf
+```js
+<Input
+	placeholder="Apply Mask - Cpf"
+	onBeforeChange={{
+		applyMask: {
+			cpf: true,
+		},
+	}}
+/>
+```
+
+### applyMask.cep
+```js
+<Input
+	placeholder="Apply Mask - Cep"
+	onBeforeChange={{
+		applyMask: {
+			cep: true,
 		},
 	}}
 />

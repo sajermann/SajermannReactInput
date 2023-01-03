@@ -8,43 +8,9 @@ function SubContainer({ children }: { children: React.ReactNode }) {
 	return <div className={styles.subContainer}>{children}</div>;
 }
 
-function unformat(value: string) {
-	return parseFloat(
-		value
-			.replace(/[^0-9,.]/g, '')
-			.replace(/[.]/g, '')
-			.replace(',', '.')
-	);
-}
-
-function formatarStringForReal(valor: string) {
-	try {
-		const newValue = valor.replace(/\D/g, '');
-		const arrayValues = `${(Number(newValue) / 100).toFixed(2)}`.split('.');
-		const arrayValuesMain = arrayValues[0]
-			.split('')
-			.reverse()
-			.join('')
-			.match(/.{1,3}/g);
-
-		if (!arrayValuesMain) {
-			return 'R$ 0,00';
-		}
-
-		for (let i = 0; i < arrayValuesMain.length; i += 1)
-			arrayValuesMain[i] = `${arrayValuesMain[i]
-				.split('')
-				.reverse()
-				.join('')}.`;
-
-		const valueMain = arrayValuesMain.reverse().join('');
-
-		return `R$ ${valueMain.substring(0, valueMain.lastIndexOf('.'))},${
-			arrayValues[1]
-		}`;
-	} catch {
-		return 'R$ 0,00';
-	}
+function addMessage(valor: string) {
+	const result = valor.replace('Very Good - ', '');
+	return `Very Good - ${result}`;
 }
 
 function App() {
@@ -124,7 +90,7 @@ function App() {
 						fn: e => {
 							const temp = { ...e };
 
-							temp.target.value = formatarStringForReal(temp.target.value);
+							temp.target.value = addMessage(temp.target.value);
 
 							return temp;
 						},
