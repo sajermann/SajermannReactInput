@@ -1,6 +1,6 @@
 {
 	"name": "@sajermann/react-input",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Library created for implements super power in input.",
 	"main": "index.js",
 	"publishConfig": {

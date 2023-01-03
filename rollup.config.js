@@ -1,7 +1,4 @@
 import typescript from '@rollup/plugin-typescript';
-import image from '@rollup/plugin-image';
-import autoprefixer from 'autoprefixer';
-import postcss from 'rollup-plugin-postcss';
 
 export default [
 	{
@@ -26,12 +23,6 @@ export default [
 					'src/**/*.spec.ts',
 					'src/**/*.test.ts',
 				],
-			}),
-			image(),
-			postcss({
-				plugins: [autoprefixer()],
-				extract: true,
-				// modules: true,
 			}),
 		],
 	},
