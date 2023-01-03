@@ -161,6 +161,15 @@ function App() {
 				/>
 
 				<Input
+					placeholder="Apply Mask - Cep"
+					onBeforeChange={{
+						applyMask: {
+							cep: true,
+						},
+					}}
+				/>
+
+				<Input
 					placeholder="Debounce 2 seconds"
 					onChange={e => console.log(e.target.value)}
 					debounce={2000}

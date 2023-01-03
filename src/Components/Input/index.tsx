@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
-
-type PropsRealFormat = {
-	value?: string;
-	decimalPlace?: number;
-	thousandSeparator?: string;
-	decimalSeparator?: string;
-};
+import { TCep } from '../../Types/TCep';
+import { TCnpj } from '../../Types/TCnpj';
+import { TCpf } from '../../Types/TCpf';
+import { TCurrency } from '../../Types/TCurrency';
+import { TRealFormat } from '../../Types/TRealFormat';
+import { cep } from '../../Utils/Cep';
 
 function maskRealForInput({
 	value = '',
 	decimalPlace = 2,
 	thousandSeparator = '.',
 	decimalSeparator = ',',
-}: PropsRealFormat) {
+}: TRealFormat) {
 	try {
 		const decimalsElement = 10 ** decimalPlace;
 		const thousandSeparatorFormatted = `$1${thousandSeparator}`;
@@ -62,29 +61,6 @@ function maskCpf(value: string) {
 	}
 }
 
-type PropsCep = {
-	currency?: undefined;
-	cpf?: undefined;
-	cnpj?: undefined;
-	cep?: true;
-};
-
-type PropsCnpj = {
-	cpf?: undefined;
-	cnpj?: true;
-};
-
-type PropsCpf = {
-	cpf?: true;
-	cnpj?: undefined;
-};
-
-type PropsCurrency = {
-	cnpj?: undefined;
-	cpf?: undefined;
-	currency: Pick<PropsRealFormat, 'value' | 'decimalPlace'>;
-};
-
 interface Props extends React.HTMLProps<HTMLInputElement> {
 	labelProps?: React.DetailedHTMLProps<
 		React.LabelHTMLAttributes<HTMLLabelElement>,
@@ -107,7 +83,7 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
 		fn?: (
 			e: React.ChangeEvent<HTMLInputElement>
 		) => React.ChangeEvent<HTMLInputElement>;
-		applyMask?: PropsCurrency | PropsCnpj | PropsCpf | PropsCep;
+		applyMask?: TCurrency | TCnpj | TCpf | TCep;
 	};
 
 	debounce?: number;
@@ -123,7 +99,7 @@ function Input({
 }: Props) {
 	const [event, setEvent] = useState<React.ChangeEvent<HTMLInputElement>>();
 
-	function onChangeCustom(e: React.ChangeEvent<HTMLInputElement>) {
+	async function onChangeCustom(e: React.ChangeEvent<HTMLInputElement>) {
 		if (!onBeforeChange && onChange) {
 			onChange(e);
 			return;
@@ -155,11 +131,11 @@ function Input({
 			valueTemp = valueTemp.replace(onBeforeChange?.regexForReplace, '');
 		}
 
-		if ((onBeforeChange?.applyMask as PropsCurrency).currency) {
+		if (onBeforeChange?.applyMask?.currency) {
 			valueTemp = maskRealForInput({
 				value: valueTemp,
-				decimalPlace: (onBeforeChange?.applyMask as PropsCurrency).currency
-					.decimalPlace,
+				decimalPlace: (onBeforeChange?.applyMask as TCurrency).currency
+					?.decimalPlace,
 			});
 		}
 
@@ -169,6 +145,10 @@ function Input({
 
 		if (onBeforeChange?.applyMask?.cpf) {
 			valueTemp = maskCpf(valueTemp);
+		}
+
+		if (onBeforeChange?.applyMask?.cep) {
+			valueTemp = cep(valueTemp);
 		}
 
 		temp.target.value = valueTemp;
