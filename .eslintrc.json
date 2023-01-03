@@ -39,6 +39,7 @@
 			}
 	],
 		"react/require-default-props": "off",
+		"import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx","**/*.spec.tsx","**/Test/setup.ts", "**/rollup.config.js"]}],
 		"prettier/prettier": "error",
 		"space-before-function-paren": "off",
 		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", "ts", "tsx"] }],

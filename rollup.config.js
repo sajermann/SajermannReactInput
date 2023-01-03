@@ -18,10 +18,13 @@ export default [
 				},
 				exclude: [
 					'src/Pages',
+					'src/Config',
 					'src/App.tsx',
 					'src/main.tsx',
 					'src/**/*.spec.ts',
+					'src/**/*.spec.tsx',
 					'src/**/*.test.ts',
+					'src/**/*.test.tsx',
 				],
 			}),
 		],

@@ -1,6 +1,6 @@
 import { TRealFormat } from '../../Types/TRealFormat';
 
-export function real({
+function real({
 	value = '',
 	decimalPlace = 2,
 	thousandSeparator = '.',
@@ -37,7 +37,7 @@ function cnpj(value: string) {
 			.replace(/(\d{4})(\d)/, '$1-$2')
 			.replace(/(-\d{2})\d+$/, '$1');
 	} catch {
-		return value;
+		return '';
 	}
 }
 
@@ -51,18 +51,18 @@ function cpf(value: string) {
 			.replace(/(\d{3})(\d{1,2})/, '$1-$2')
 			.replace(/(-\d{2})\d+$/, '$1');
 	} catch {
-		return value;
+		return '';
 	}
 }
 
-export function cep(value: string) {
+function cep(value: string) {
 	try {
 		return value
 			.replace(/\D/g, '')
 			.replace(/(\d{5})(\d)/, '$1-$2')
 			.replace(/(-\d{3})\d+$/, '$1');
 	} catch {
-		return value;
+		return '';
 	}
 }
 

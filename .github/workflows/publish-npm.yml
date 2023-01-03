@@ -21,8 +21,8 @@ jobs:
          registry-url: https://registry.npmjs.org/
       - name: CI
         run: npm ci
-      # - name: Test
-      #   run: npm test
+      - name: Test
+        run: npm test
       - name: Build
         run: npm run build
       - name: Copy Files Requireds
