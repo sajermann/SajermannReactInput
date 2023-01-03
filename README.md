@@ -13,9 +13,13 @@ Library created for implements super power in input.
 
 ## Props
 **label?:** string; **Note:** Override in label attribute input;
+
 **labelProps?:** React.DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
+
 **containerProps?:** React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+
 **onChange?:** (e: React.ChangeEvent<HTMLInputElement>) => void;
+
 **onBeforeChange?:** {
 &nbsp;&nbsp;&nbsp;&nbsp;removeNumber?: boolean;
 &nbsp;&nbsp;&nbsp;&nbsp;removeLetterUpper?: boolean;
@@ -24,7 +28,9 @@ Library created for implements super power in input.
 &nbsp;&nbsp;&nbsp;&nbsp;regexForReplace?: RegExp;
 &nbsp;&nbsp;&nbsp;&nbsp;fn?: (e: React.ChangeEvent<HTMLInputElement>) => React.ChangeEvent<HTMLInputElement>;
 };
+
 **applyMask?:** TCurrency | TCnpj | TCpf | TCep;
+
 **debounce?:** number;
 
 ## Examples
