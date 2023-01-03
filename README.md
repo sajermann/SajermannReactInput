@@ -38,9 +38,9 @@ Library created for implements super power in input.
 ### label
 ```js
 <Input
-    placeholder="Simple Label"
-    id="Simple Label"
-    label="Simple Label"
+	placeholder="Simple Label"
+	id="Simple Label"
+	label="Simple Label"
 />
 ```
 
@@ -49,7 +49,7 @@ Library created for implements super power in input.
 <Input
 	placeholder="Label Props"
 	labelProps={{
-	children: 'Test',
+		children: 'Test',
 		style: { color: 'red' },
 	}}
 	id="Label Props"
