@@ -1,4 +1,5 @@
 import typescript from '@rollup/plugin-typescript';
+import terser from '@rollup/plugin-terser';
 
 export default [
 	{
@@ -26,6 +27,9 @@ export default [
 					'src/**/*.test.ts',
 					'src/**/*.test.tsx',
 				],
+			}),
+			terser({
+				maxWorkers: 4,
 			}),
 		],
 	},
