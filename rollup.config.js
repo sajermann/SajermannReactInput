@@ -1,36 +1,26 @@
-import typescript from '@rollup/plugin-typescript';
+import ts from 'rollup-plugin-ts';
+import del from 'rollup-plugin-delete';
 import terser from '@rollup/plugin-terser';
 
 export default [
 	{
-		preserveModules: true,
-		input: 'src/index.ts',
+		input: 'src/ComponentsNpm/index.ts',
 		output: {
 			dir: 'build',
 			format: 'esm',
+			preserveModules: false, // One file bundle
 		},
 		plugins: [
-			typescript({
+			ts({
 				tsconfig: './tsconfig.json',
 				compilerOptions: {
 					jsx: 'react-jsx',
 					declaration: true,
 					declarationDir: 'build',
 				},
-				exclude: [
-					'src/Pages',
-					'src/Config',
-					'src/App.tsx',
-					'src/main.tsx',
-					'src/**/*.spec.ts',
-					'src/**/*.spec.tsx',
-					'src/**/*.test.ts',
-					'src/**/*.test.tsx',
-				],
 			}),
-			terser({
-				maxWorkers: 4,
-			}),
+			del({ targets: 'build/*' }),
+			terser(), // minify
 		],
 	},
 ];

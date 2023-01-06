@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Input } from './Components/Input';
+import { Input } from './ComponentsNpm/Input';
 
 import styles from './App.module.css';
 
