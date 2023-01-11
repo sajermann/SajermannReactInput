@@ -10,7 +10,7 @@
 		"type": "git",
 		"url": "https://github.com/sajermann/SajermannReactInput"
 	},
-	"keywords": ["ui", "react", "front-end", "css"],
+	"keywords": ["ui", "react", "front-end", "css", "input"],
 	"author": "Bruno Sajermann",
 	"license": "ISC"
 }
