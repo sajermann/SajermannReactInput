@@ -9,11 +9,13 @@
 		"copyRequiredsLinux": "cp './packageExclusive.json' './build/package.json' && cp './README.md' './build'",
 		"test": "vitest run --coverage",
 		"vitest": "vitest --coverage --ui --api.port=56789",
-		"build:vite": "tsc && vite build"
+		"build:vite": "tsc && vite build",
+    "sonar": "npx sonar-scanner -D sonar.login=sqp_"
 	},
 	"dependencies": {
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"sonarqube-scanner": "^3.0.0"
 	},
 	"devDependencies": {
 		"@rollup/plugin-terser": "^0.2.1",

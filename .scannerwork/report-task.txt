@@ -1,0 +1,6 @@
+projectKey=SajermannReactInput
+serverUrl=https://sonar.sajermann.com
+serverVersion=9.8.0.63668
+dashboardUrl=https://sonar.sajermann.com/dashboard?id=SajermannReactInput
+ceTaskId=AYWglEY62dFqVHA4TMT8
+ceTaskUrl=https://sonar.sajermann.com/api/ce/task?id=AYWglEY62dFqVHA4TMT8

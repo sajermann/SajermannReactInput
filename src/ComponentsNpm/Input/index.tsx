@@ -61,12 +61,12 @@ function Input({
 		}
 
 		if (onBeforeChange?.removeNumber) {
-			valueTemp = valueTemp.replace(/[0-9]/g, '');
+			valueTemp = valueTemp.replace(/\d/g, '');
 		}
 
 		if (onBeforeChange?.removeSpecialCharacter) {
 			valueTemp = valueTemp.replace(
-				/[!@#$%^&*(),.?":{ }|<>'¨_=+[;^~´`°\]\\\-/]/g,
+				/[!@#$%&*(),.?":{ }|<>'¨_=+[;^~´`°\]\\\-/]/g,
 				''
 			);
 		}
@@ -75,7 +75,7 @@ function Input({
 			valueTemp = valueTemp.replace(onBeforeChange?.regexForReplace, '');
 		}
 
-		if (onBeforeChange?.applyMask?.currency) {
+		if ((onBeforeChange?.applyMask as TCurrency)?.currency) {
 			valueTemp = mask.real({
 				value: valueTemp,
 				decimalPlace: (onBeforeChange?.applyMask as TCurrency).currency
@@ -83,15 +83,15 @@ function Input({
 			});
 		}
 
-		if (onBeforeChange?.applyMask?.cnpj) {
+		if ((onBeforeChange?.applyMask as TCnpj)?.cnpj) {
 			valueTemp = mask.cnpj(valueTemp);
 		}
 
-		if (onBeforeChange?.applyMask?.cpf) {
+		if ((onBeforeChange?.applyMask as TCpf)?.cpf) {
 			valueTemp = mask.cpf(valueTemp);
 		}
 
-		if (onBeforeChange?.applyMask?.cep) {
+		if ((onBeforeChange?.applyMask as TCep)?.cep) {
 			valueTemp = mask.cep(valueTemp);
 		}
 
@@ -116,17 +116,15 @@ function Input({
 		setEvent(e);
 	}
 
-	if (debounce) {
-		useEffect(() => {
-			const timer = setTimeout(() => {
-				if (debounce && event) {
-					onChangeCustom(event);
-				}
-			}, debounce);
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			if (debounce && event) {
+				onChangeCustom(event);
+			}
+		}, debounce);
 
-			return () => clearTimeout(timer);
-		}, [event]);
-	}
+		return () => clearTimeout(timer);
+	}, [event]);
 
 	return (
 		<div {...containerProps}>

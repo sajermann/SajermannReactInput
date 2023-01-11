@@ -48,10 +48,7 @@ function App() {
 					}}
 				/>
 
-				<Input
-					placeholder="On Change"
-					onChange={e => console.log(e.target.value)}
-				/>
+				<Input placeholder="On Change" onChange={console.log} />
 
 				<Input
 					placeholder="Remove Number"
@@ -85,7 +82,7 @@ function App() {
 
 				<Input
 					placeholder="Function Before Change"
-					onChange={e => console.log(e.target.value)}
+					onChange={console.log}
 					onBeforeChange={{
 						fn: e => {
 							const temp = { ...e };
@@ -137,7 +134,7 @@ function App() {
 
 				<Input
 					placeholder="Debounce 2 seconds"
-					onChange={e => console.log(e.target.value)}
+					onChange={console.log}
 					debounce={2000}
 				/>
 			</SubContainer>
