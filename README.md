@@ -1,5 +1,7 @@
 # @sajermann/react-input
 
+[![Quality Gate Status](https://sonar.sajermann.com/api/project_badges/measure?project=SajermannReactInput&metric=alert_status&token=2ddf3388c5b43c30d19701079f6b123aeeaff568)]() [![Coverage](https://sonar.sajermann.com/api/project_badges/measure?project=SajermannReactInput&metric=coverage&token=2ddf3388c5b43c30d19701079f6b123aeeaff568)]() [![Bugs](https://sonar.sajermann.com/api/project_badges/measure?project=SajermannReactInput&metric=bugs&token=2ddf3388c5b43c30d19701079f6b123aeeaff568)]() [![Code Smells](https://sonar.sajermann.com/api/project_badges/measure?project=SajermannReactInput&metric=code_smells&token=2ddf3388c5b43c30d19701079f6b123aeeaff568)]() [![Duplicated Lines (%)](https://sonar.sajermann.com/api/project_badges/measure?project=SajermannReactInput&metric=duplicated_lines_density&token=2ddf3388c5b43c30d19701079f6b123aeeaff568)]()
+
 Library created for implements super power in input.
 
 ## Install
