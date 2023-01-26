@@ -1,3 +1,4 @@
-import { Input } from './Input';
+import { Input, ISajermannReactInput } from './Input';
 
 export { Input };
+export type { ISajermannReactInput };

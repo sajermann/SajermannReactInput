@@ -5,7 +5,7 @@ import { TCpf } from '../../Types/TCpf';
 import { TCurrency } from '../../Types/TCurrency';
 import { mask } from '../../Utils/Mask';
 
-interface Props extends React.HTMLProps<HTMLInputElement> {
+interface ISajermannReactInput extends React.HTMLProps<HTMLInputElement> {
 	labelProps?: React.DetailedHTMLProps<
 		React.LabelHTMLAttributes<HTMLLabelElement>,
 		HTMLLabelElement
@@ -40,7 +40,7 @@ function Input({
 	onChange,
 	debounce,
 	...props
-}: Props) {
+}: ISajermannReactInput) {
 	const [event, setEvent] = useState<React.ChangeEvent<HTMLInputElement>>();
 
 	async function onChangeCustom(e: React.ChangeEvent<HTMLInputElement>) {
@@ -140,3 +140,4 @@ function Input({
 }
 
 export { Input };
+export type { ISajermannReactInput };
