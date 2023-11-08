@@ -13,6 +13,10 @@ Library created for implements super power in input.
 [NPM](https://www.npmjs.com/package/@sajermann/react-input)
 [Github](https://github.com/sajermann/SajermannReactInput)
 
+## Import
+
+```import { Input, ISajermannReactInput } from '@sajermann/ui-react';```
+
 ## Props
 **label?:** string; **Note:** Override in label attribute input;
 
