@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, LegacyRef, useEffect, useState } from 'react';
 import { TCep } from '../../Types/TCep';
 import { TCnpj } from '../../Types/TCnpj';
 import { TCpf } from '../../Types/TCpf';
@@ -33,7 +33,7 @@ interface ISajermannReactInput extends React.HTMLProps<HTMLInputElement> {
 	debounce?: number;
 }
 
-const Input = forwardRef<HTMLInputElement, ISajermannReactInput>(
+const Input = forwardRef(
 	(
 		{
 			labelProps,
@@ -42,7 +42,7 @@ const Input = forwardRef<HTMLInputElement, ISajermannReactInput>(
 			onChange,
 			debounce,
 			...props
-		},
+		}: ISajermannReactInput,
 		ref
 	) => {
 		const [event, setEvent] = useState<React.ChangeEvent<HTMLInputElement>>();
@@ -138,7 +138,11 @@ const Input = forwardRef<HTMLInputElement, ISajermannReactInput>(
 					</label>
 				)}
 
-				<input {...props} onChange={preOnChange} ref={ref} />
+				<input
+					{...props}
+					onChange={preOnChange}
+					ref={ref as LegacyRef<HTMLInputElement> | undefined}
+				/>
 			</div>
 		);
 	}
