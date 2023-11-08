@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 
 import { Input } from './ComponentsNpm/Input';
 
@@ -14,10 +14,12 @@ function addMessage(valor: string) {
 }
 
 function App() {
+	const [controlledValue, setControlledValue] = useState('');
+	const ref = useRef<HTMLInputElement>(null);
 	return (
 		<main className={styles.main}>
 			<div>
-				<div>{`import { Input } from '@sajermann/ui-react';`}</div>
+				<div>{`import { Input, ISajermannReactInput } from '@sajermann/ui-react';`}</div>
 			</div>
 
 			<SubContainer>
@@ -47,39 +49,31 @@ function App() {
 						},
 					}}
 				/>
-
 				<Input placeholder="On Change" onChange={console.log} />
-
 				<Input
 					placeholder="Remove Number"
 					onBeforeChange={{ removeNumber: true }}
 				/>
-
 				<Input
 					placeholder="Remove All Letter"
 					onBeforeChange={{ removeLowerCase: true, removeUpperCase: true }}
 				/>
-
 				<Input
 					placeholder="Remove Upper Case"
 					onBeforeChange={{ removeUpperCase: true }}
 				/>
-
 				<Input
 					placeholder="Remove Lower Case"
 					onBeforeChange={{ removeLowerCase: true }}
 				/>
-
 				<Input
 					placeholder="Remove Special Character"
 					onBeforeChange={{ removeSpecialCharacter: true }}
 				/>
-
 				<Input
 					placeholder="Remove numbers from 1 to 5"
 					onBeforeChange={{ regexForReplace: /[1-5]/g }}
 				/>
-
 				<Input
 					placeholder="Function Before Change"
 					onChange={console.log}
@@ -93,7 +87,6 @@ function App() {
 						},
 					}}
 				/>
-
 				<Input
 					placeholder="Apply Mask - Currency"
 					onBeforeChange={{
@@ -104,7 +97,6 @@ function App() {
 						},
 					}}
 				/>
-
 				<Input
 					placeholder="Apply Mask - Cnpj"
 					onBeforeChange={{
@@ -113,7 +105,6 @@ function App() {
 						},
 					}}
 				/>
-
 				<Input
 					placeholder="Apply Mask - Cpf"
 					onBeforeChange={{
@@ -122,7 +113,6 @@ function App() {
 						},
 					}}
 				/>
-
 				<Input
 					placeholder="Apply Mask - Cep"
 					onBeforeChange={{
@@ -131,12 +121,25 @@ function App() {
 						},
 					}}
 				/>
-
 				<Input
 					placeholder="Debounce 2 seconds"
 					onChange={console.log}
 					debounce={2000}
 				/>
+				<Input
+					placeholder="Controlled"
+					onChange={e => setControlledValue(e.target.value)}
+					value={controlledValue}
+				/>
+				Controlled Value: {controlledValue}
+				<Input ref={ref} placeholder="Ref - Focus" />
+				<button
+					type="button"
+					style={{ width: 173 }}
+					onClick={() => ref.current?.focus()}
+				>
+					Focus
+				</button>
 			</SubContainer>
 		</main>
 	);
