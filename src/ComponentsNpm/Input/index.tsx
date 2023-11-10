@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, ReactNode, useEffect, useState } from 'react';
 import { TCep } from '../../Types/TCep';
 import { TCnpj } from '../../Types/TCnpj';
 import { TCpf } from '../../Types/TCpf';
@@ -12,6 +12,11 @@ interface ISajermannReactInput extends React.HTMLProps<HTMLInputElement> {
 	>;
 
 	containerProps?: React.DetailedHTMLProps<
+		React.HTMLAttributes<HTMLDivElement>,
+		HTMLDivElement
+	>;
+
+	errorContainerProps?: React.DetailedHTMLProps<
 		React.HTMLAttributes<HTMLDivElement>,
 		HTMLDivElement
 	>;
@@ -31,6 +36,10 @@ interface ISajermannReactInput extends React.HTMLProps<HTMLInputElement> {
 	};
 
 	debounce?: number;
+
+	errors?: string[];
+	renderTop?: ReactNode;
+	renderBottom?: ReactNode;
 }
 
 const Input = forwardRef<HTMLInputElement, ISajermannReactInput>(
@@ -39,8 +48,12 @@ const Input = forwardRef<HTMLInputElement, ISajermannReactInput>(
 			labelProps,
 			onBeforeChange,
 			containerProps,
+			errorContainerProps,
 			onChange,
 			debounce,
+			errors,
+			renderTop,
+			renderBottom,
 			...props
 		},
 		ref
@@ -132,6 +145,7 @@ const Input = forwardRef<HTMLInputElement, ISajermannReactInput>(
 
 		return (
 			<div {...containerProps}>
+				{renderTop}
 				{(labelProps || props.label) && (
 					<label htmlFor={props.id} {...labelProps}>
 						{labelProps?.children || props.label}
@@ -139,6 +153,14 @@ const Input = forwardRef<HTMLInputElement, ISajermannReactInput>(
 				)}
 
 				<input {...props} onChange={preOnChange} ref={ref} />
+				{errors && (
+					<div {...errorContainerProps}>
+						{errors?.map(error => (
+							<span key={error}>{error}</span>
+						))}
+					</div>
+				)}
+				{renderBottom}
 			</div>
 		);
 	}

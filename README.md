@@ -200,3 +200,78 @@ Library created for implements super power in input.
 	debounce={2000}
 />
 ```
+
+### controlled
+```js
+<Input
+	placeholder="Controlled"
+	onChange={e => setControlledValue(e.target.value)}
+	value={controlledValue}
+/>
+Controlled Value: {controlledValue}
+```
+
+### ref
+```js
+const ref = useRef<HTMLInputElement>(null);
+<Input ref={ref} placeholder="Ref - Focus" />
+<button
+	type="button"
+	style={{ width: 173 }}
+	onClick={() => ref.current?.focus()}
+>
+	Focus
+</button>
+```
+
+### errors / errorContainerProps
+```js
+<Input
+	placeholder="Errors"
+	containerProps={{
+		style: {
+			display: 'flex',
+			flexDirection: 'column',
+			width: 173,
+		},
+	}}
+	errorContainerProps={{
+		style: {
+			display: 'flex',
+			flexDirection: 'column',
+			color: 'red',
+			fontSize: 14,
+		},
+	}}
+	errors={['Required', 'Invalid email adress']}
+/>
+
+```
+### renderTop
+```js
+<Input 
+	placeholder="Render Top" 
+	renderTop={<div>Element In Top</div>} 
+/>
+```
+
+### renderBottom / Custom Error Indicator
+```js
+<Input 
+	placeholder="Custom Error" 
+	renderBottom={
+	<div
+		style={{
+			position: 'absolute',
+			top: 2,
+			right: 10,
+			color: 'black',
+			cursor: 'pointer',
+		}}
+		title="Invalid email adress"
+	>
+		i
+	</div>
+	}
+/>
+```

@@ -140,6 +140,53 @@ function App() {
 				>
 					Focus
 				</button>
+				<Input
+					placeholder="Errors"
+					containerProps={{
+						style: {
+							display: 'flex',
+							flexDirection: 'column',
+							width: 173,
+						},
+					}}
+					errorContainerProps={{
+						style: {
+							display: 'flex',
+							flexDirection: 'column',
+							color: 'red',
+							fontSize: 14,
+						},
+					}}
+					errors={['Required', 'Invalid email adress']}
+				/>
+				<Input placeholder="Render Top" renderTop={<div>Element In Top</div>} />
+				<Input
+					placeholder="Render Bottom"
+					renderBottom={<div>Element In Top</div>}
+				/>
+				<Input
+					placeholder="Custom Error"
+					containerProps={{
+						style: {
+							position: 'relative',
+							width: 173,
+						},
+					}}
+					renderBottom={
+						<div
+							style={{
+								position: 'absolute',
+								top: 2,
+								right: 10,
+								color: 'black',
+								cursor: 'pointer',
+							}}
+							title="Invalid email adress"
+						>
+							i
+						</div>
+					}
+				/>
 			</SubContainer>
 		</main>
 	);
